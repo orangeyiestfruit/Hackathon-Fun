@@ -1,8 +1,32 @@
 import sqlite3
 from hashlib import *
+from flask import Flask, render_template, jsonify
+from flask_cors import CORS, cross_origin
+
 conn = sqlite3.connect('thelogin.db')
 c = conn.cursor()
+def setup_stuff():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'secret!'
+    socketio = SocketIO(app)
 
+    # Enable cors (so the development server can access Python back-end (since it has different port number)
+    # cors = CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+    @app.route("/")
+    def hello():
+        return render_template('index.html')
+
+    @app.route('/ping', methods=['GET'])
+    def ping_pong():
+        return jsonify('pong!')
+    
+    if __name__ == '__main__':
+        #socketio.run(app)
+        # app.run(host='0.0.0.0', port=5000)
+        app.run()
 def create_table(tablename):
     c.execute("CREATE TABLE IF NOT EXISTS "+tablename+"(user TEXT,password TEXT)")
 
@@ -34,5 +58,3 @@ def encrypt(password):
     m = sha512()
     m.update(bytes(password,'utf-8'))
     return m.digest()
-
-
