@@ -1,0 +1,21 @@
+Useful Commands
+1.) Use a local project environment (so our global packages don't interfere with the ones we need for this project)
+1.1.) Activate local environment
+virtualenv local-environ-name
+
+1.1.) Go to a local environment
+./py-socket/Scripts/activate
+
+1.2.) Go to global environment
+deactivate
+
+1.3.) Remove local environment (after deactivating)
+Just delete the folder where projectenv created the local environment
+
+
+2.) Use requirements.txt
+2.1.)
+pip freeze --local > requirements.txt
+
+2.2.) Install packages baseed on requirements.txt
+pip install -r requirements.txt
