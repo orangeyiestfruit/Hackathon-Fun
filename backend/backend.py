@@ -3,7 +3,7 @@ from hashlib import *
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS, cross_origin
 
-conn = sqlite3.connect('thelogin.db')
+conn = sqlite3.connect('login.db')
 c = conn.cursor()
 def setup_stuff():
     app = Flask(__name__)
@@ -31,19 +31,25 @@ def create_table(tablename):
     c.execute("CREATE TABLE IF NOT EXISTS "+tablename+"(user TEXT,password TEXT)")
 
 def create_table2(tablename):
-    c.execute("CREATE TABLE IF NOT EXISTS "+tablename+" (user TEXT, appliance, TEXT)")
-    
-#create_table("login")
-#create_table2("appliances")
+    c.execute("CREATE TABLE IF NOT EXISTS "+tablename+" (user TEXT, appliance TEXT)")
 
 def data_entry_login(username,password):
-    c.execute("INSERT INTO login (user,password) VALUES(?,?)",(username,password))
-    conn.commit()
+    isInLogin=False
+    c.execute("SELECT user FROM login")
+    for row in c.fetchall():
+        if row[0]==username:
+            isInLogin=True
+            break
+    if isInLogin==False:
+        c.execute("INSERT INTO login (user,password) VALUES(?,?)",(username,password))
+        conn.commit()
+    else:
+        #Error 001
+        print("Already exists!")
 
 def data_entry_appliances(owner,appliancename):
-    c.execute("INSERT INTO login (user,appliance) VALUES(?,?)",(owner,appliancename))
+    c.execute("INSERT INTO appliances (user,appliance) VALUES(?,?)",(owner,appliancename))
     conn.commit()
-
 def login_password(username):
     c.execute("SELECT password FROM login WHERE user='"+username+"'")
     for row in c.fetchall():
@@ -58,3 +64,18 @@ def encrypt(password):
     m = sha512()
     m.update(bytes(password,'utf-8'))
     return m.digest()
+def clear_empty_row_login():
+    c.execute("SELECT user FROM login")
+    c.execute("DELETE FROM login WHERE user IS NULL OR trim(user) = ''")
+    conn.commit()
+def clear_empty_row_appliances():
+    c.execute("SELECT user FROM appliances")
+    c.execute("DELETE FROM appliances WHERE user IS NULL OR trim(user) = ''")
+    conn.commit()
+#program
+#create_table("login")
+#create_table2("appliances")
+#data_entry_appliances("Edwin0101","Coffee Machine")
+clear_empty_row_login()
+data_entry_login("Edwin0101","fuck")
+print(appliance_appliances("Edwin0101"))
