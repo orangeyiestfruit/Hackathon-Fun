@@ -72,10 +72,18 @@ def clear_empty_row_appliances():
     c.execute("SELECT user FROM appliances")
     c.execute("DELETE FROM appliances WHERE user IS NULL OR trim(user) = ''")
     conn.commit()
+def verify_login(username, thepassword):
+    c.execute("SELECT password FROM login WHERE user = '"+username+"'")
+    for row in c.fetchall():
+        if row[0]==thepassword:
+            return 0
+        else:
+            return -1
 #program
 #create_table("login")
 #create_table2("appliances")
 #data_entry_appliances("Edwin0101","Coffee Machine")
-clear_empty_row_login()
-data_entry_login("Edwin0101","fuck")
-print(appliance_appliances("Edwin0101"))
+#clear_empty_row_login()
+#data_entry_login("Edwin0101","fuck")
+#print(appliance_appliances("Edwin0101"))
+#print(verify_login("Edwin0101","Pawn1234"))
