@@ -19,4 +19,3 @@ pip freeze --local > requirements.txt
 
 2.2.) Install packages baseed on requirements.txt
 pip install -r requirements.txt
-

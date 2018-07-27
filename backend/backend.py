@@ -22,11 +22,12 @@ def setup_stuff():
     @app.route('/ping', methods=['GET'])
     def ping_pong():
         return jsonify('pong!')
-    
+
     if __name__ == '__main__':
         #socketio.run(app)
         # app.run(host='0.0.0.0', port=5000)
         app.run()
+
 def create_table(tablename):
     c.execute("CREATE TABLE IF NOT EXISTS "+tablename+"(user TEXT,password TEXT)")
 
