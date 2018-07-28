@@ -5,10 +5,10 @@ from flask_cors import CORS, cross_origin
 
 conn = sqlite3.connect('login.db')
 c = conn.cursor()
+
 def setup_stuff():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'secret!'
-    socketio = SocketIO(app)
 
     # Enable cors (so the development server can access Python back-end (since it has different port number)
     # cors = CORS(app)
@@ -17,16 +17,21 @@ def setup_stuff():
 
     @app.route("/")
     def hello():
-        return render_template('index.html')
+        return render_template('<h1>Hi There</h1>')
 
     @app.route('/ping', methods=['GET'])
     def ping_pong():
         return jsonify('pong!')
 
+    @app.route('/register', methods=['POST'])
+    def ping_pong():
+        return jsonify('Stuff registered!')
+
     if __name__ == '__main__':
         #socketio.run(app)
         # app.run(host='0.0.0.0', port=5000)
         app.run()
+setup_stuff()
 
 def create_table(tablename):
     c.execute("CREATE TABLE IF NOT EXISTS "+tablename+"(user TEXT,password TEXT)")

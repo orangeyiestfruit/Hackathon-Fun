@@ -22,6 +22,10 @@
     }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+#app {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
 
 </style>

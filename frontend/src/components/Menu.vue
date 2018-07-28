@@ -1,60 +1,38 @@
 <template lang="html">
-<div>
-  <el-col :span="12">
-    <h5>Default colors</h5>
-    <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item-group title="Group One">
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item one</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">item four</template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span>Navigator Two</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span>Navigator Four</span>
-      </el-menu-item>
-    </el-menu>
-  </el-col>
-</div>
+  <at-menu active-name="1" id="nav">
+  <at-menu-item name="1"><i class="icon icon-home"></i>Home</at-menu-item>
+
+  <at-submenu>
+    <template slot="title"><i class="icon icon-book"></i>My Items</template>
+    <at-menu-item-group title="Group Two">
+      <at-menu-item name="2-1">Submenu One</at-menu-item>
+      <at-menu-item name="2-2">Submenu Two</at-menu-item>
+    </at-menu-item-group>
+    <at-menu-item-group title="Group Three">
+      <at-menu-item name="3-1">Submenu Three</at-menu-item>
+      <at-menu-item name="3-2" disabled>Submenu Four</at-menu-item>
+    </at-menu-item-group>
+  </at-submenu>
+
+  <at-menu-item name="4"><i class="icon icon-plus-square"></i>Create an Item</at-menu-item>
+  <at-menu-item name="5"><i class="icon icon-info"></i>About</at-menu-item>
+  </at-menu>
 </template>
 
 <script>
 export default {
  data() {
    return {
-     isCollapse: true
+
    }
  },
  methods: {
-   handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
+
  }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+  @import '@/styles/variables.scss';
 
 </style>

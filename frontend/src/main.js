@@ -1,15 +1,16 @@
 import Vue from 'vue'
 
-// Fonts
-import '@/assets/fonts/fonts.scss'
+// Import fonts and other global styles
+//import '@/assets/fonts/fonts.scss'
+import '@/styles/globals.scss'
 
-// Element UI
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// AT UIKIT
+import AtComponents from 'at-ui'
+import 'at-ui-style'
+Vue.use(AtComponents)
 
 import App from './App.vue'
 
-Vue.use(ElementUI)
 
 import router from './router'
 import store from './store'
