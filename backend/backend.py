@@ -80,6 +80,7 @@ def verify_login(username, thepassword):
             return 0
         else:
             return -1
+setup_stuff()
 #program
 #create_table("login")
 #create_table2("appliances")
