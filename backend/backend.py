@@ -1,6 +1,6 @@
 import sqlite3
 from hashlib import *
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
 
 conn = sqlite3.connect('login.db')
@@ -20,16 +20,19 @@ def setup_stuff():
         return render_template('<h1>Hi There</h1>')
 
     @app.route('/ping', methods=['GET'])
-    def ping_pong():
+    def ping():
         return jsonify('pong!')
 
     @app.route('/register', methods=['POST'])
-    def ping_pong():
-        return jsonify('Stuff registered!')
+    def register():
+        # Converts stuff from the .json object to python structures
+        # Ex. Converts arrays in the .json file to python lists
+        # Note that I import 'request' from 'flask'
+        data = request.get_json()
+
+        return jsonify(data)
 
     if __name__ == '__main__':
-        #socketio.run(app)
-        # app.run(host='0.0.0.0', port=5000)
         app.run()
 setup_stuff()
 
